@@ -53,8 +53,8 @@ function makeMarkup(response) {
         <div class="photo-card">
  <a  class="gallery__link" href="${element.largeImageURL}">
     <img
-         width="280"
-          height="280"
+         width="350"
+          height="250"
      src="${element.webformatURL}"
      class="gallery__image"
     
