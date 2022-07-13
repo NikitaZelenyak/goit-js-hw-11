@@ -1,0 +1,63 @@
+
+
+.contianer{
+position: fixed;
+left: 0;
+top: 0;
+ width: 100%;
+background-color: rgb(78, 121, 237);
+display: flex;
+padding: 20px 0px 20px 0px;
+}
+.search-form{
+
+    margin-left: auto;
+    margin-right: auto;
+}
+input{
+min-width: 250px;
+height: 20px;
+border-radius: 4px;
+border-color: transparent;
+padding-left: 8px;
+
+
+}
+
+
+button{
+ 
+
+    padding: 3px;
+border-color: transparent;
+border-radius: 4px;
+
+}
+
+li{
+    list-style: none;
+    
+}
+.info{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: aliceblue;
+
+
+}
+.info-item{
+display: flex;
+flex-direction: column;
+align-items: center;
+
+
+}
+.photo-card{
+
+  display: inline-block;
+
+}
+
+.gallery{
+    margin-top: 60px;
+}
