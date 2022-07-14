@@ -1,22 +1,23 @@
 
 const formEl = document.querySelector('.search-form');
+
 const wrapGallery = document.querySelector('.gallery');
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-``
 var throttle = require('lodash.throttle');
 
 import ImgAPiServer from "./components-js/api-server";
 
-formEl.addEventListener('submit', onSearch)
+formEl.addEventListener('submit', onSearch);
+
 
 
 
 
 const imgAPiServer = new ImgAPiServer;
 
-async function onSearch(e) {
+function onSearch(e) {
   
     e.preventDefault();
 
@@ -36,9 +37,9 @@ async function onSearch(e) {
        
         wrapGallery.insertAdjacentHTML('beforeend', makeMarkup(response));
   
-        var lightbox = new SimpleLightbox('.gallery__link');
- var gallery = $('.gallery__link').simpleLightbox();
-        gallery.refresh();
+        var lightbox = new SimpleLightbox('.gallery a');
+
+
 
     })
 
@@ -97,7 +98,7 @@ function makeMarkup(response) {
 
 window.addEventListener('scroll', throttle(checkPosition,300));
 window.addEventListener('resize', throttle(checkPosition,300));
-async function checkPosition() {
+function checkPosition() {
 
   const height = document.body.offsetHeight;
   const screenHeight = window.innerHeight;
@@ -114,13 +115,26 @@ async function checkPosition() {
        
       wrapGallery.insertAdjacentHTML('beforeend', makeMarkup(response));
   
-        var lightbox = new SimpleLightbox('.gallery__link');
-        var gallery = $('.gallery__link').simpleLightbox();
-        gallery.refresh();
+        var lightbox = new SimpleLightbox('.gallery a');
+    
+        lightbox.refresh();
+       
+
       
-        
+        smoothScroll();
     })
 
    
   }
+}
+
+function smoothScroll() {
+    const { height: cardHeight } = document
+.querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
 }
