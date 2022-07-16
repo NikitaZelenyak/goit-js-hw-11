@@ -5,18 +5,17 @@ const wrapGallery = document.querySelector('.gallery');
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+
 var throttle = require('lodash.throttle');
 
 import ImgAPiServer from "./components-js/api-server";
 
 formEl.addEventListener('submit', onSearch);
 
-
-
+var lightbox = new SimpleLightbox('.gallery a');
 
 
 const imgAPiServer = new ImgAPiServer;
-
 function onSearch(e) {
   
     e.preventDefault();
@@ -26,7 +25,7 @@ function onSearch(e) {
     imgAPiServer.page = 1;
    
   imgAPiServer.fetchPhoto().then(response => {
-      
+        
     if (response.length === 0) {
           
          Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
@@ -36,10 +35,13 @@ function onSearch(e) {
        }
        
         wrapGallery.insertAdjacentHTML('beforeend', makeMarkup(response));
-  
-        var lightbox = new SimpleLightbox('.gallery a');
+         smoothScroll();
+    lightbox.refresh();
+    
+ 
 
-
+      
+    
 
     })
 
@@ -91,9 +93,11 @@ function makeMarkup(response) {
   
 
         `
-    }).join('')
-    
+  }).join('')
+ 
+   
 }
+
 
 
 window.addEventListener('scroll', throttle(checkPosition,300));
@@ -110,18 +114,25 @@ function checkPosition() {
   const position = scrolled + screenHeight;
     if (position >= threshold) {
         imgAPiServer.page += 1;
-   
+    
       imgAPiServer.fetchPhoto().then(response => {
        
       wrapGallery.insertAdjacentHTML('beforeend', makeMarkup(response));
-  
-        var lightbox = new SimpleLightbox('.gallery a');
+        
+         
+   
+
     
-        lightbox.refresh();
-       
+    
+     
+ 
+      
+    
+     
+   lightbox.refresh();
 
       
-        smoothScroll();
+      smoothScroll();
     })
 
    
@@ -130,7 +141,7 @@ function checkPosition() {
 
 function smoothScroll() {
     const { height: cardHeight } = document
-.querySelector(".gallery")
+.querySelector(".photo-card")
   .firstElementChild.getBoundingClientRect();
 
 window.scrollBy({
